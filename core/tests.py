@@ -33,12 +33,12 @@ class ContactTest(TestCase):
         self.assertEqual(contact.other_contacts, "other_contacts")
 
 
-class HttpMidelwareTestCase(object):
-    """test midelware that stored all http requests in the DB"""
+class HttpMiddlewareTestCase(TestCase):
+    """test middleware that stored all http requests in the DB"""
     def setUp(self):
         self.client = Client()
 
     def test_midelware(self):
         response = self.client.get(reverse('index'))
-        log_entry = HttpLogEntry.object.latest('pk')
+        log_entry = HttpLogEntry.objects.latest('pk')
         self.assertEqual(log_entry.url, reverse('index'))

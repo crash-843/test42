@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <a href="{% url 'index' %}"><- back</a>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Url</th>
+                <th>time</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for log_entry in log %}
+                <tr>
+                    <td>{{ host }}{{ log_entry.url }}</td>
+                    <td>{{ log_entry.created|date:'H:i:s d.m.y' }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock content %}

@@ -11,3 +11,8 @@ class Contact(models.Model):
     jabber = models.CharField(_("Jabber"), max_length=255)
     skype = models.CharField(_("Skype"), max_length=32)
     other_contacts = models.TextField(_("Other contacts"))
+
+
+class HttpLogEntry(models.Model):
+    url = models.URLField(_("Url"))
+    created = models.DateTimeField(auto_now_add=True, editable=False)

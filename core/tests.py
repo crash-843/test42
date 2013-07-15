@@ -1,7 +1,7 @@
 from django.test import TestCase
 from django.core.urlresolvers import reverse
 from django.test.client import Client
-from models import Contact
+from models import Contact, HttpLogEntry
 
 
 class ContactTest(TestCase):
@@ -31,3 +31,14 @@ class ContactTest(TestCase):
         self.assertEqual(contact.jabber, 'crash843@khavr.com')
         self.assertEqual(contact.skype, "iggor_ua")
         self.assertEqual(contact.other_contacts, "other_contacts")
+
+
+class HttpMidelwareTestCase(object):
+    """test midelware that stored all http requests in the DB"""
+    def setUp(self):
+        self.client = Client()
+
+    def test_midelware(self):
+        response = self.client.get(reverse('index'))
+        log_entry = HttpLogEntry.object.latest('pk')
+        self.assertEqual(log_entry.url, reverse('index'))

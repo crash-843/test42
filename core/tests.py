@@ -7,6 +7,16 @@ from models import Contact
 class ContactTest(TestCase):
     def setUp(self):
         self.client = Client()
+        Contact.objects.create(
+            first_name='Igor',
+            last_name='Kucher',
+            birth_date='1990-01-15',
+            bio='biography',
+            email='igor.k.843@gmail.com',
+            jabber='crash843@khavr.com',
+            skype='iggor_ua',
+            other_contacts='other_contacts'
+        )
 
     def test_contact(self):
         response = self.client.get(reverse('index'))
@@ -19,5 +29,5 @@ class ContactTest(TestCase):
         self.assertEqual(contact.bio, 'biography')
         self.assertEqual(contact.email, 'igor.k.843@gmail.com')
         self.assertEqual(contact.jabber, 'crash843@khavr.com')
-        self.assertEqual(contact.info.skype, "iggor_ua")
-        self.assertEqual(contact.info.other_contacts, "other_contacts")
+        self.assertEqual(contact.skype, "iggor_ua")
+        self.assertEqual(contact.other_contacts, "other_contacts")

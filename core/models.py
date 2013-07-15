@@ -15,3 +15,4 @@ class Contact(models.Model):
 
 class HttpLogEntry(models.Model):
     url = models.URLField(_("Url"))
+    created = models.DateTimeField(auto_now_add=True, editable=False)

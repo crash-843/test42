@@ -252,26 +252,12 @@
     "is_active": true, 
     "is_superuser": true, 
     "is_staff": true, 
-    "last_login": "2013-07-15T16:40:22.244Z", 
+    "last_login": "2013-07-15T17:17:25.186Z", 
     "groups": [], 
     "user_permissions": [], 
     "password": "pbkdf2_sha256$10000$v6UzczbbXNmt$jBmtPyhnoTQWizp9bP8ujlGMFVgR4TMTVtpBuDPu8pY=", 
     "email": "igor.k.843@gmail.com", 
     "date_joined": "2013-07-15T10:50:39.374Z"
-  }
-},
-{
-  "pk": 1, 
-  "model": "core.contact", 
-  "fields": {
-    "bio": "biography", 
-    "first_name": "Igor", 
-    "last_name": "Kucher", 
-    "other_contacts": "other_contacts", 
-    "skype": "iggor_ua", 
-    "birth_date": "1990-01-15", 
-    "jabber": "crash843@khavr.com", 
-    "email": "igor.k.843@gmail.com"
   }
 }
 ]

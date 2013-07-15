@@ -8,15 +8,18 @@ from django.db import models
 class Migration(SchemaMigration):
 
     def forwards(self, orm):
-        # Adding field 'HttpLogEntry.created'
-        db.add_column(u'core_httplogentry', 'created',
-                      self.gf('django.db.models.fields.DateTimeField')(auto_now_add=True, default=datetime.datetime(2013, 7, 15, 0, 0), blank=True),
-                      keep_default=False)
+        # Adding model 'HttpLogEntry'
+        db.create_table(u'core_httplogentry', (
+            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
+            ('url', self.gf('django.db.models.fields.URLField')(max_length=200)),
+            ('created', self.gf('django.db.models.fields.DateTimeField')(auto_now_add=True, blank=True)),
+        ))
+        db.send_create_signal(u'core', ['HttpLogEntry'])
 
 
     def backwards(self, orm):
-        # Deleting field 'HttpLogEntry.created'
-        db.delete_column(u'core_httplogentry', 'created')
+        # Deleting model 'HttpLogEntry'
+        db.delete_table(u'core_httplogentry')
 
 
     models = {

@@ -1,6 +1,7 @@
 from django.test import TestCase
 from django.core.urlresolvers import reverse
 from django.template.defaultfilters import linebreaksbr
+from django.conf import settings
 from models import Contact, HttpLogEntry
 
 
@@ -30,19 +31,24 @@ class HttpMiddlewareTestCase(TestCase):
         self.assertEqual(log_entry.method, 'GET')
         self.assertEqual(log_entry.status_code, response.status_code)
 
-
     def test_view(self):
-        for i in range(1,15):
+        for i in range(1, 15):
             response = self.client.get(reverse('index'))
             response = self.client.get(reverse('log'))
 
         response = self.client.get(reverse('log'))
         log = HttpLogEntry.objects.all().order_by('created')[:10]
         log_resp = response.context['log']
-        
+
         self.assertEqual(len(log_resp), 10)
-        for i in range(0,10):
+        for i in range(0, 10):
             self.assertEqual(log[i].url, log_resp[i].url)
             self.assertEqual(log[i].method, log_resp[i].method)
             self.assertEqual(log[i].status_code, log_resp[i].status_code)
             self.assertEqual(log[i].created, log_resp[i].created)
+
+
+class ContextProcessorsTextCase(TestCase):
+    def test_context_processor(self):
+        response = self.client.get(reverse('index'))
+        self.assertEqual(response.context['settings'], settings)

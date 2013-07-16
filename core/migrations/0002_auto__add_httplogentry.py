@@ -12,6 +12,9 @@ class Migration(SchemaMigration):
         db.create_table(u'core_httplogentry', (
             (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
             ('url', self.gf('django.db.models.fields.URLField')(max_length=200)),
+            ('method', self.gf('django.db.models.fields.CharField')(max_length=10)),
+            ('status_code', self.gf('django.db.models.fields.IntegerField')()),
+            ('created', self.gf('django.db.models.fields.DateTimeField')(auto_now_add=True, blank=True)),
         ))
         db.send_create_signal(u'core', ['HttpLogEntry'])
 
@@ -36,7 +39,10 @@ class Migration(SchemaMigration):
         },
         u'core.httplogentry': {
             'Meta': {'object_name': 'HttpLogEntry'},
+            'created': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'blank': 'True'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'method': ('django.db.models.fields.CharField', [], {'max_length': '10'}),
+            'status_code': ('django.db.models.fields.IntegerField', [], {}),
             'url': ('django.db.models.fields.URLField', [], {'max_length': '200'})
         }
     }

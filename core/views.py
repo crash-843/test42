@@ -11,16 +11,16 @@ def index(request):
     data = {
         'contacts': contacts,
     }
-    return render(request, 'index.html', data)
+    return render(request, 'core/index.html', data)
 
 
 def get_http_log(request):
     try:
-        log = HttpLogEntry.objects.all().order_by('-pk')[:10]
+        log = HttpLogEntry.objects.all().order_by('-created')[:10]
     except HttpLogEntry.DoesNotExist:
         log = None
     data = {
         'log': log,
         'host': request.get_host(),
     }
-    return render(request, 'requests.html', data)
+    return render(request, 'core/requests.html', data)

@@ -1,4 +1,6 @@
 *.pyc
+*.py~
 *.db
+*.css~
 settings_local.py
 test42/static/

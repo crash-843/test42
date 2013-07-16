@@ -15,4 +15,6 @@ class Contact(models.Model):
 
 class HttpLogEntry(models.Model):
     url = models.URLField(_("Url"))
+    method = models.CharField(_("Method"), max_length=10)
+    status_code = models.IntegerField(_("Status code"))
     created = models.DateTimeField(auto_now_add=True, editable=False)

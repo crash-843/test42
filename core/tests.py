@@ -42,7 +42,6 @@ class HttpMiddlewareTestCase(TestCase):
         
         self.assertEqual(len(log_resp), 10)
         for i in range(0,10):
-            print(i)
             self.assertEqual(log[i].url, log_resp[i].url)
             self.assertEqual(log[i].method, log_resp[i].method)
             self.assertEqual(log[i].status_code, log_resp[i].status_code)

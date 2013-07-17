@@ -6,7 +6,6 @@ from models import Contact, HttpLogEntry
 
 
 class ContactTest(TestCase):
-    fixtures = ['data.json']
     def test_contact(self):
         response = self.client.get(reverse('index'))
         contact = Contact.objects.get(pk=1)
@@ -51,3 +50,18 @@ class ContextProcessorsTextCase(TestCase):
     def test_context_processor(self):
         response = self.client.get(reverse('index'))
         self.assertEqual(response.context['settings'], settings)
+
+
+class ContactEditTestCase(TestCase):
+    def setUp(self):
+        self.client.login(username='admin', password='admin')
+
+    def test_edit_form(self):
+        # response = self.client.get(reverse('edit'))
+        data = Contact.objects.values().get(pk=1)
+        data['email'] = 'test@domain.com'
+        response = self.client.post(reverse('edit'), data)
+        self.assertEqual(response.status_code, 200)
+
+        contact = Contact.objects.get(pk=1)
+        self.assertEqual(contact.email, data['email'])

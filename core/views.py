@@ -34,7 +34,7 @@ def get_http_log(request):
 def contact_edit(request):
     contact = Contact.objects.get(pk=1)
     if request.method == 'POST':
-        form = ContactForm(request.POST, instance=contact)
+        form = ContactForm(request.POST, request.FILES, instance=contact)
         if form.is_valid():
             form.save()
             return HttpResponseRedirect(reverse('index'))
@@ -42,6 +42,7 @@ def contact_edit(request):
         form = ContactForm(instance=contact)
         data = {
             'form': form,
+            'contact': contact
         }
         return render(request, 'core/contact_edit.html', data)
     data = {

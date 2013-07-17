@@ -2,9 +2,9 @@
 
 {% block content %}
     <h2>42 Coffee Cups Test Assignment</h2>
-    <form class="form-horizontal" action="{% url 'contact-edit' %}" method="post">{% csrf_token %}
+    <form class="form-horizontal" enctype="multipart/form-data" action="{% url 'contact-edit' %}" method="post">{% csrf_token %}
         <div class="row">
-            <div class="span5">
+            <div class="span6">
                 <div class="control-group">
                     <label class="text-error">{{ form.first_name.errors }}</label>
                     <label class="control-label">{{ form.first_name.label }}:</label>
@@ -22,9 +22,11 @@
                 </div>
                 <div class="control-group">
                     <label class="text-error">{{ form.photo.errors }}</label>
-                    <label class="control-label" for="photo">Photo:</label>
-                    <div class="controls">
-                        <input class="input-medium" type="text" name="photo" id="photo">
+                    <label class="control-label" for="photo">{{ form.photo.label }}:</label>
+                    <div class="controls">{{ form.photo }}
+                        {% if form.instance.photo %}
+                            <img src="{{ form.instance.photo.url }}">
+                        {% endif %}
                     </div>
                 </div>
             </div>

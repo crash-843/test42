@@ -10,6 +10,12 @@
 </head>
 <body>
     <div class="container">
+    	<div class="span2 offset10">
+    		{% if user.is_authenticated %}
+    			hello, {{ user.username }} | <a href="{% url 'logout' %}">logout</a>
+    		{% else %}
+    			<a href="{% url 'login' %}">login</a>
+    		{% endif %}</div>
         {% block content %}{% endblock content %}
     </div>  
 </body>

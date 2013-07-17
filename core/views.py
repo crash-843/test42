@@ -42,7 +42,6 @@ def contact_edit(request):
         form = ContactForm(instance=contact)
         data = {
             'form': form,
-            'contact': contact
         }
         return render(request, 'core/contact_edit.html', data)
     data = {

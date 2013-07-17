@@ -6,6 +6,7 @@ from models import Contact, HttpLogEntry
 
 
 class ContactTest(TestCase):
+    fixtures = ['data.json']
     def test_contact(self):
         response = self.client.get(reverse('index'))
         contact = Contact.objects.get(pk=1)

@@ -173,9 +173,9 @@ LOGGING = {
     }
 }
 
-# FIXTURE_DIRS = (
-#     os.path.join(os.path.dirname(os.path.dirname(__file__)), 'core/fixtures'),
-# )
+FIXTURE_DIRS = (
+    os.path.join(os.path.dirname(os.path.dirname(__file__)), 'core/fixtures'),
+)
 
 
 try:

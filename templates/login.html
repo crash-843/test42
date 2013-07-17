@@ -4,29 +4,29 @@
 
 {% block content %}
     <div class="span6 offset3">
-    <h3 class="text-center">Authentication</h3>
-    {% if form.errors %}
-        <p class="text-error">The login or/and password is incorrect</p>
-    {% endif %}
-    <form class="form-horizontal" action="{% url "login" %}" method="post">{% csrf_token %}
-      <div class="control-group">
-        <label class="control-label" for="username">Username</label>
-        <div class="controls">
-          <input class="input-medium" type="text" name="username" id="username" placeholder="Username">
+      <h3 class="text-center">Authentication</h3>
+      {% if form.errors %}
+          <p class="text-error">The login or/and password is incorrect</p>
+      {% endif %}
+      <form class="form-horizontal" action="{% url "login" %}" method="post">{% csrf_token %}
+        <div class="control-group">
+          <label class="control-label" for="username">Username</label>
+          <div class="controls">
+            <input class="input-medium" type="text" name="username" id="username" placeholder="Username">
+          </div>
         </div>
-      </div>
-      <div class="control-group">
-        <label class="control-label" for="inputPassword">Password</label>
-        <div class="controls">
-          <input class="input-medium"  type="password" name="password" id="inputPassword" placeholder="Password">
+        <div class="control-group">
+          <label class="control-label" for="inputPassword">Password</label>
+          <div class="controls">
+            <input class="input-medium"  type="password" name="password" id="inputPassword" placeholder="Password">
+          </div>
         </div>
-      </div>
-      <div class="control-group">
-        <div class="controls">
-          <input type="hidden" name="next" value="{% url 'index' %}" />
-          <button type="submit" class="btn">Sign in</button>
+        <div class="control-group">
+          <div class="controls">
+            <input type="hidden" name="next" value="{% url 'index' %}" />
+            <button type="submit" class="btn">Sign in</button>
+          </div>
         </div>
-      </div>
-  </div>
-    </form>
+      </form>
+    </div>
 {% endblock %}

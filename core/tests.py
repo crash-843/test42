@@ -60,8 +60,8 @@ class ContactEditTestCase(TestCase):
         # response = self.client.get(reverse('edit'))
         data = Contact.objects.values().get(pk=1)
         data['email'] = 'test@domain.com'
-        response = self.client.post(reverse('edit'), data)
-        self.assertEqual(response.status_code, 200)
+        response = self.client.post(reverse('contact-edit'), data)
+        self.assertEqual(response.status_code, 302)
 
         contact = Contact.objects.get(pk=1)
         self.assertEqual(contact.email, data['email'])

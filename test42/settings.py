@@ -177,6 +177,9 @@ FIXTURE_DIRS = (
     os.path.join(os.path.dirname(os.path.dirname(__file__)), 'core/fixtures'),
 )
 
+LOGIN_URL = '/login/'
+
+LOGOUT_URL = '/logout/'
 
 try:
     from settings_local import *

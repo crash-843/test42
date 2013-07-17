@@ -142,7 +142,6 @@ INSTALLED_APPS = (
 
     # Utils
     'south',
-    'easy_thumbnails',
 )
 
 # A sample logging configuration. The only tangible logging

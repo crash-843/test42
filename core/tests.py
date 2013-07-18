@@ -93,9 +93,9 @@ class EditLinkTemplateTagTestCase(TestCase):
     def test_edit_tag(self):
         contact = Contact.objects.get(pk=1)
         link = reverse("admin:core_contact_change", args=(contact.pk,))
-        template = "{% load objects_edit_link %} {% edit_link contact %}"
+        template = "{% load get_edit_link %} {% edit_link contact %}"
         data = {
             'contact': contact,
         }
         response = Template(template).render(Context(data))
-        self.assertEqual(response, link)
+        self.assertEqual(response.strip(), link)

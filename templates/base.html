@@ -1,4 +1,5 @@
 {% load staticfiles %}
+
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -14,6 +15,7 @@
 <body>
     <div class="container">
     	<div class="span2 offset10">
+            <a href="{% url 'contact-edit' %}">edit</a>
     		{% if user.is_authenticated %}
     			hello, {{ user.username }} | <a href="{% url 'logout' %}">logout</a>
     		{% else %}

@@ -13,9 +13,15 @@ class Contact(models.Model):
     other_contacts = models.TextField(_("Other contacts"))
     photo = models.ImageField(_('Photo'), upload_to="images/core/upload", null=True, blank=True)
 
+    def __unicode__(self):
+        return self.first_name
+
 
 class HttpLogEntry(models.Model):
     url = models.URLField(_("Url"))
     method = models.CharField(_("Method"), max_length=10)
     status_code = models.IntegerField(_("Status code"))
     created = models.DateTimeField(auto_now_add=True, editable=False)
+
+    def __unicode__(self):
+        return self.url

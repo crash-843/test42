@@ -1,5 +1,6 @@
 from django.test import TestCase
 from django.core.urlresolvers import reverse
+from django.template import Template, Context
 from django.template.defaultfilters import linebreaksbr
 from django.conf import settings
 import os
@@ -84,3 +85,15 @@ class ContactEditTestCase(TestCase):
         self.assertEqual(contact.skype, data['skype'])
         self.assertEqual(contact.other_contacts, data['other_contacts'])
         self.assertEqual(contact.bio, data['bio'])
+
+
+class EditLinkTemplateTagTestCase(TestCase):
+    def test_edit_tag(self):
+        contact = Contact.objects.get(pk=1)
+        link = reverse("admin:core_contact_change", args=(contact.pk,))
+        template = "{% load objects_edit_link %} {% edit_link contact %}"
+        data = {
+            'contact': contact,
+        }
+        response = Template(template).render(Context(data))
+        self.assertEqual(response, link)

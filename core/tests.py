@@ -54,10 +54,12 @@ class ContextProcessorsTextCase(TestCase):
 
 
 class ContactEditTestCase(TestCase):
-    def setUp(self):
+    def test_edit_form(self):
+        response = self.client.get(reverse('contact-edit'))
+        self.assertEqual(response.status_code, 302)
+
         self.client.login(username='admin', password='admin')
 
-    def test_edit_form(self):
         response = self.client.get(reverse('contact-edit'))
         self.assertEqual(response.status_code, 200)
 

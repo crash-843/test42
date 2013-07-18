@@ -4,6 +4,8 @@ import os
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
+PROJECT_PATH = os.path.dirname(__file__)
+
 ADMINS = (
     # ('Your Name', 'your_email@example.com'),
 )
@@ -51,7 +53,7 @@ USE_TZ = True
 
 # Absolute filesystem path to the directory that will hold user-uploaded files.
 # Example: "/var/www/example.com/media/"
-MEDIA_ROOT = os.path.join(os.path.abspath(os.path.dirname(__file__)), 'media')
+MEDIA_ROOT = os.path.join(os.path.dirname(PROJECT_PATH), 'media')
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash.
@@ -62,7 +64,7 @@ MEDIA_URL = '/media/'
 # Don't put anything in this directory yourself; store your static files
 # in apps' "static/" subdirectories and in STATICFILES_DIRS.
 # Example: "/var/www/example.com/static/"
-STATIC_ROOT = os.path.join(os.path.abspath(os.path.dirname(__file__)), 'static')
+STATIC_ROOT = os.path.join(PROJECT_PATH, 'static')
 # STATIC_ROOT = os.path.join(PROJECT_DIR, 'static')
 
 
@@ -174,12 +176,14 @@ LOGGING = {
 }
 
 FIXTURE_DIRS = (
-    os.path.join(os.path.dirname(os.path.dirname(__file__)), 'core/fixtures'),
+    os.path.join(os.path.dirname(PROJECT_PATH), 'core/fixtures'),
 )
 
 LOGIN_URL = '/login/'
 
-LOGOUT_URL = '/logout/'
+LOGOUT_URL = '/'
+
+LOGIN_REDIRECT_URL = '/'
 
 try:
     from settings_local import *

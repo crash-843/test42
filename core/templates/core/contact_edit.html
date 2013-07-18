@@ -39,20 +39,21 @@
                 </div>
                 <div id="{{ form.jabber.name }}" class="control-group">
                     <label class="text-error">{{ form.jabber.errors }}</label>
-                    <label class="control-label" for="jabber">Jabber:</label>
+                    <label class="control-label" for="jabber">{{ form.jabber.label }}:</label>
                     <div class="controls">{{ form.jabber }}</div>
                 </div>
                 <div id="{{ form.skype.name }}" class="control-group">
                     <label class="text-error">{{ form.skype.errors }}</label>
-                    <label class="control-label" for="skype">Skype:</label>
+                    <label class="control-label" for="skype">{{ form.skype.label }}:</label>
                     <div class="controls">{{ form.skype }}</div>
                 </div>
                 <div id="{{ form.other_contacts.name }}" class="control-group">
                     <label class="text-error">{{ form.other_contacts.errors }}</label>
-                    <label for="other_contacts">{{ form.other_contacts.label }}:</label>{{ form.other_contacts }}</div>
+                    <label class="control-label" for="other_contacts">{{ form.other_contacts.label }}:</label>{{ form.other_contacts }}
+                </div>
                 <div id="{{ form.bio.name }}" class="control-group">
                     <label class="text-error">{{ form.bio.errors }}</label>
-                    <label for="bio">Bio:</label>{{ form.bio }}</textarea>
+                    <label class="control-label" for="bio">{{ form.bio.label }}:</label>{{ form.bio }}
                 </div>
             </div>
         </div>

@@ -1,7 +1,9 @@
 from django.shortcuts import render
+from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.http.response import HttpResponseRedirect
 from django.core.urlresolvers import reverse
+import json
 from forms import ContactForm
 from models import Contact, HttpLogEntry
 
@@ -36,8 +38,12 @@ def contact_edit(request):
     if request.method == 'POST':
         form = ContactForm(request.POST, request.FILES, instance=contact)
         if form.is_valid():
-            form.save()
-            return HttpResponseRedirect(reverse('index'))
+            contact = form.save()
+            data = {
+                'is_error': 0,
+                'photo': contact.photo.url,
+            }
+            return HttpResponse(json.dumps(data))
     else:
         form = ContactForm(instance=contact)
         data = {
@@ -45,6 +51,7 @@ def contact_edit(request):
         }
         return render(request, 'core/contact_edit.html', data)
     data = {
-        'form': form,
+        'is_error': 1,
+        'errors': form.errors,
     }
-    return render(request, 'core/contact_edit.html', data)
+    return HttpResponse(json.dumps(data))

@@ -8,3 +8,15 @@
 .user_photo{
   	width: 350px;
 }
+
+#edit_contact_progress_bar{
+	display: none;
+}
+
+#edit_contact_successful{
+	display: none;
+}
+
+#edit_contact_error{
+	display: none;
+}

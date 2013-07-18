@@ -8,12 +8,12 @@ from models import Contact, HttpLogEntry
 
 def index(request):
     try:
-        contacts = Contact.objects.get(pk=1)
+        contact = Contact.objects.get(pk=1)
     except Contact.DoesNotExist:
-        contacts = None
+        contact = None
 
     data = {
-        'contacts': contacts,
+        'contact': contact,
     }
     return render(request, 'core/index.html', data)
 

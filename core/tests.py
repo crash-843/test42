@@ -73,7 +73,7 @@ class ContactEditTestCase(TestCase):
         data['photo'] = open(os.path.join(settings.MEDIA_ROOT, 'images/core/test_image.jpg'), "rb")
 
         response = self.client.post(reverse('contact-edit'), data)
-        self.assertEqual(response.status_code, 302)
+        self.assertEqual(response.status_code, 200)
 
         contact = Contact.objects.get(pk=1)
         self.assertEqual(contact.first_name, data['first_name'])

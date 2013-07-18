@@ -5,4 +5,4 @@
 *.css~
 settings_local.py
 test42/static/
-test42/media/
+media/

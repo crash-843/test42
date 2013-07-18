@@ -20,3 +20,8 @@
 #edit_contact_error{
 	display: none;
 }
+
+#edit_contact_form textarea{
+	width: 95%;
+}
+

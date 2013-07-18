@@ -1,5 +1,7 @@
 {% extends "base.html" %}
 
+{% load get_edit_link %}
+
 {% block content %}
     <h2>42 Coffee Cups Test Assignment</h2>
     <a href="{% url 'contact-edit' %}">edit</a>
@@ -19,6 +21,7 @@
             <p>Bio:{{ contact.bio|linebreaksbr }}</p>
         </div>
     </div>
+    <a href="{% edit_link contact %}"> edit ({{ contact }})</a>
     <div class="line"><hr /></div>
     <a href="{% url 'log' %}">requests</a>
 {% endblock content %}

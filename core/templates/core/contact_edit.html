@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h2>42 Coffee Cups Test Assignment</h2>
+    <form class="form-horizontal" enctype="multipart/form-data" action="{% url 'contact-edit' %}" method="post">{% csrf_token %}
+        <div class="row">
+            <div class="span6">
+                <div class="control-group">
+                    <label class="text-error">{{ form.first_name.errors }}</label>
+                    <label class="control-label">{{ form.first_name.label }}:</label>
+                    <div class="controls">{{ form.first_name }}</div>
+                </div>
+                <div class="control-group">
+                    <label class="text-error">{{ form.last_name.errors }}</label>
+                    <label class="control-label" for="lastname">{{ form.last_name.label }}:</label>
+                    <div class="controls">{{ form.last_name}}</div>
+                </div>
+                <div class="control-group">
+                    <label class="text-error">{{ form.birth_date.errors }}</label>
+                    <label class="control-label" for="birth_date">{{ form.birth_date.label }}:</label>
+                    <div class="controls">{{ form.birth_date }}</div>
+                </div>
+                <div class="control-group">
+                    <label class="text-error">{{ form.photo.errors }}</label>
+                    <label class="control-label" for="photo">{{ form.photo.label }}:</label>
+                    <div class="controls">{{ form.photo }}
+                        {% if form.instance.photo %}
+                            <img src="{{ form.instance.photo.url }}">
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+              <div class="span6">
+                <div class="control-group">
+                    <label class="text-error">{{ form.email.errors }}</label>
+                    <label class="control-label" for="email">{{ form.email.label }}:</label>
+                    <div class="controls">{{ form.email }}</div>
+                </div>
+                <div class="control-group">
+                    <label class="text-error">{{ form.jabber.errors }}</label>
+                    <label class="control-label" for="jabber">Jabber:</label>
+                    <div class="controls">{{ form.jabber }}</div>
+                </div>
+                <div class="control-group">
+                    <label class="text-error">{{ form.skype.errors }}</label>
+                    <label class="control-label" for="skype">Skype:</label>
+                    <div class="controls">{{ form.skype }}</div>
+                </div>
+                <div class="control-group">
+                    <label class="text-error">{{ form.other_contacts.errors }}</label>
+                    <label for="other_contacts">{{ form.other_contacts.label }}:</label>{{ form.other_contacts }}</div>
+                <div class="control-group">
+                    <label class="text-error">{{ form.bio.errors }}</label>
+                    <label for="bio">Bio:</label>{{ form.bio }}</textarea>
+                </div>
+            </div>
+        </div>
+        <button type="submit" class="btn">Save</button>&nbsp;&nbsp;&nbsp;<a href="{% url 'index' %}">Cancel</a>
+    </form>
+    <div class="line"><hr /></div>
+    <a href="{% url 'log' %}">requests</a>
+{% endblock content %}

@@ -11,6 +11,7 @@ class Contact(models.Model):
     jabber = models.CharField(_("Jabber"), max_length=255)
     skype = models.CharField(_("Skype"), max_length=32)
     other_contacts = models.TextField(_("Other contacts"))
+    photo = models.ImageField(_('Photo'), upload_to="images/core/upload", null=True, blank=True)
 
 
 class HttpLogEntry(models.Model):

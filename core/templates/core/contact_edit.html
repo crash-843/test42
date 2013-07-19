@@ -1,5 +1,11 @@
 {% extends "base.html" %}
-{% block header %}{{form.media}}{% endblock header %}
+
+{% load staticfiles %}
+
+{% block header %}
+{{form.media}}
+<script type="text/javascript" src="{% static "js/core.js" %}"></script>
+{% endblock header %}
 
 {% block content %}
     <h2>42 Coffee Cups Test Assignment</h2>
@@ -26,7 +32,9 @@
                     <label class="control-label" for="photo">{{ form.photo.label }}:</label>
                     <div class="controls">{{ form.photo }}
                         {% if form.instance.photo %}
-                            <img id="user_photo" src="{{ form.instance.photo.url }}">
+                            <img src="{{ form.instance.photo.url }}">
+                        {% else %}
+                            <img src="">
                         {% endif %}
                     </div>
                 </div>
@@ -59,11 +67,11 @@
         </div>
         <button type="submit" class="btn">Save</button>&nbsp;&nbsp;&nbsp;<a href="{% url 'index' %}">Cancel</a>
     </form>
-    <div id="edit_contact_progress_bar" class="progress progress-striped active">
+    <div class="progress progress-striped active edit_contact_progress">
         <div class="bar" ></div>
     </div>
-    <div id="edit_contact_successful" class="alert alert-success">Changes have been saved.</div>
-    <div id="edit_contact_error" class="alert alert-error">Error! Changes have not been saved.</div>
+    <div class="alert alert-success contact-edit-alert">Changes have been saved.</div>
+    <div class="alert alert-error contact-edit-alert">Error! Changes have not been saved.</div>
     <div class="line"><hr /></div>
     <a href="{% url 'log' %}">requests</a>
 {% endblock content %}

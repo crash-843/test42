@@ -78,7 +78,35 @@ class ContactEditTestCase(TestCase):
         data['photo'] = open(os.path.join(settings.MEDIA_ROOT, 'images/core/test_image.jpg'), "rb")
 
         response = self.client.post(reverse('contact-edit'), data)
+        self.assertEqual(response.status_code, 302)
+
+        contact = Contact.objects.get(pk=1)
+        self.assertEqual(contact.first_name, data['first_name'])
+        self.assertEqual(contact.last_name, data['last_name'])
+        self.assertEqual(contact.birth_date.strftime("%Y-%m-%d"), data['birth_date'])
+        self.assertEqual(contact.email, data['email'])
+        self.assertEqual(contact.jabber, data['jabber'])
+        self.assertEqual(contact.skype, data['skype'])
+        self.assertEqual(contact.other_contacts, data['other_contacts'])
+        self.assertEqual(contact.bio, data['bio'])
+
+    def test_ajax_edit_form(self):
+        self.client.login(username='admin', password='admin')
+
+        data = Contact.objects.values().get(pk=1)
+        data['first_name'] = 'Igor_test'
+        data['last_name'] = 'Kucher_test'
+        data['birth_date'] = '1990-01-10'
+        data['email'] = 'test@domain.com'
+        data['jabber'] = 'testt@domain.com'
+        data['skype'] = 'skype_test'
+        data['other_contacts'] = 'other_test'
+        data['bio'] = 'bio_test'
+        data['photo'] = open(os.path.join(settings.MEDIA_ROOT, 'images/core/test_image.jpg'), "rb")
+
+        response = self.client.post(reverse('contact-edit'), data,  HTTP_X_REQUESTED_WITH='XMLHttpRequest')
         self.assertEqual(response.status_code, 200)
+        self.assertContains(response, '"is_error": 0')
 
         contact = Contact.objects.get(pk=1)
         self.assertEqual(contact.first_name, data['first_name'])

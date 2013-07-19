@@ -1,6 +1,7 @@
 from django.forms import ModelForm, FileInput
-from widgets import DateWidget
+
 from models import Contact
+from widgets import DateWidget
 
 
 class ContactForm(ModelForm):

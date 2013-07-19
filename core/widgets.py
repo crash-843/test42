@@ -1,5 +1,5 @@
-from django.forms import DateInput
 from django.conf import settings
+from django.forms import DateInput
 from django.utils.safestring import mark_safe
 
 

@@ -40,20 +40,35 @@ def contact_edit(request):
     if request.method == 'POST':
         form = ContactForm(request.POST, request.FILES, instance=contact)
         if form.is_valid():
-            contact = form.save()
-            data = {
-                'is_error': 0,
-                'photo': contact.photo.url,
-            }
-            return HttpResponse(json.dumps(data))
+            if request.is_ajax():
+                contact = form.save()
+                try:
+                    photo = contact.photo.url
+                except ValueError:
+                    photo = None
+                data = {
+                    'is_error': 0,
+                    'photo': photo,
+                }
+                return HttpResponse(json.dumps(data))
+            else:
+                form.save()
+                return HttpResponseRedirect(reverse('index'))
+        else:
+            if request.is_ajax():
+                data = {
+                    'is_error': 1,
+                    'errors': form.errors,
+                }
+                return HttpResponse(json.dumps(data))
+            else:
+                data = {
+                    'form': form,
+                }
+                return render(request, 'core/contact_edit.html', data)
     else:
         form = ContactForm(instance=contact)
         data = {
             'form': form,
         }
         return render(request, 'core/contact_edit.html', data)
-    data = {
-        'is_error': 1,
-        'errors': form.errors,
-    }
-    return HttpResponse(json.dumps(data))

@@ -4,33 +4,32 @@ $(function(){
     beforeSend: function(){
       $(':input').attr("disabled", true);
       $('.text-error').html('');
-      $('#edit_contact_error').css("display", "none");
-      $('#edit_contact_successful').css("display", "none");
-      $('#edit_contact_progress_bar .bar').width("0%");
-      $('#edit_contact_successful').css("display", "none");
-      $('#edit_contact_progress_bar').css("display", "block");
+      $('.alert-success').hide();
+      $('.alert-error').hide();
+      $('.edit_contact_progress .bar').width("0%");
+      $('.edit_contact_progress').show();
     },
     
-    success : function(responce) {
+    success : function(response) {
       $(':input').attr("disabled", false);
-      $('#edit_contact_progress_bar').css("display", "none");
-      data = $.parseJSON(responce)
+      $('.edit_contact_progress').hide();
+      data = $.parseJSON(response)
       is_error = data['is_error']
       if (is_error) {
         errors = data['errors'];
         $.each(errors, function(key, val) {
           $('#'+key+' .text-error').append('<li>'+val+'</li>');
         });
-        $('#edit_contact_error').css("display", "block");
+        $('.alert-error').show();
       }else{
-        $('#edit_contact_successful').css("display", "block");
-        // alert(data['photo']);
-        $('#user_photo').attr("src", data['photo']);
+        $('.alert-success').show();
+        $('#photo img').attr("src", data['photo']);
+        $('#id_photo').val('')
       };
     },
     
     uploadProgress: function(event, position, total, percentComplete){
-      $('#edit_contact_progress_bar .bar').width(percentComplete+"%");
+      $('.edit_contact_progress .bar').width(percentComplete+"%");
     }
 
   });

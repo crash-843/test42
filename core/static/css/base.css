@@ -5,19 +5,11 @@
      height: 3px;
 }
 
-.user_photo{
-  	width: 350px;
-}
-
-#edit_contact_progress_bar{
+.edit_contact_progress{
 	display: none;
 }
 
-#edit_contact_successful{
-	display: none;
-}
-
-#edit_contact_error{
+.contact-edit-alert{
 	display: none;
 }
 

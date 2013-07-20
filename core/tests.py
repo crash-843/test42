@@ -1,6 +1,9 @@
 import os
+from StringIO import StringIO
 
 from django.conf import settings
+from django.contrib.contenttypes.models import ContentType
+from django.core.management import call_command
 from django.core.urlresolvers import reverse
 from django.template import Template, Context
 from django.template.defaultfilters import linebreaksbr
@@ -130,3 +133,27 @@ class EditLinkTemplateTagTestCase(TestCase):
         }
         response = Template(template).render(Context(data))
         self.assertEqual(response.strip(), full_link)
+
+
+class GetModelsComandTestCase(TestCase):
+    def test_det_models(self):
+        stdout = StringIO()
+        stderr = StringIO()
+
+        call_command('get_models', stdout=stdout, stderr=stderr)
+
+        stdout.seek(0)
+        stderr.seek(0)
+        stdout = stdout.read()
+        stderr = stderr.read()
+
+        models_list = ''
+        models_list_err = ''
+
+        for model in ContentType.objects.all():
+            out = '%s - %s' % (model.model, model.model_class().objects.count())
+            models_list = models_list + out + '\n'
+            models_list_err = models_list_err + out + '\n'
+
+        self.assertEqual(stdout, models_list)
+        self.assertEqual(stdout, models_list_err)

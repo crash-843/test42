@@ -175,7 +175,7 @@ class ModelsChangeLogTestCase(TestCase):
 
         log_entry = ModelsChangeLog.objects.latest()
         self.assertEqual(log_entry.model, contact._meta.object_name)
-        self.assertEqual(log_entry.atcion, ModelsChangeLog.CREATE)
+        self.assertEqual(log_entry.action, ModelsChangeLog.CREATE)
 
         contact.first_name = 'Igor_test_edit'
         contact.save()

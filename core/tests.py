@@ -9,7 +9,7 @@ from django.template import Template, Context
 from django.template.defaultfilters import linebreaksbr
 from django.test import TestCase
 
-from models import Contact, HttpLogEntry
+from models import Contact, HttpLogEntry, ModelsChangeLog
 
 
 class ContactTest(TestCase):
@@ -157,3 +157,33 @@ class GetModelsComandTestCase(TestCase):
 
         self.assertEqual(stdout, models_list)
         self.assertEqual(stdout, models_list_err)
+
+
+class ModelsChangeLogTestCase(TestCase):
+    def test_signal_processor(self):
+        contact = Contact(
+            first_name='Igor_test',
+            last_name='Kucher_test',
+            birth_date='1990-01-10',
+            email='test@domain.com',
+            jabber='testt@domain.com',
+            skype='skype_test',
+            other_contacts='other_test',
+            bio='bio_test'
+        )
+        contact.save()
+
+        log_entry = ModelsChangeLog.objects.latest()
+        self.assertEqual(log_entry.model, contact._meta.object_name)
+        self.assertEqual(log_entry.atcion, ModelsChangeLog.CREATE)
+
+        contact.first_name = 'Igor_test_edit'
+        contact.save()
+        log_entry = ModelsChangeLog.objects.latest()
+        self.assertEqual(log_entry.model, contact._meta.object_name)
+        self.assertEqual(log_entry.action, ModelsChangeLog.EDIT)
+
+        contact.delete()
+        log_entry = ModelsChangeLog.objects.latest('created')
+        self.assertEqual(log_entry.model, contact._meta.object_name)
+        self.assertEqual(log_entry.action, ModelsChangeLog.DELETE)

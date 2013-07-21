@@ -5,6 +5,10 @@
      height: 3px;
 }
 
+.container-left{
+	margin-left: 15px;
+}
+
 .edit_contact_progress{
 	display: none;
 }

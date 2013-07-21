@@ -12,7 +12,7 @@
     {% block header %}{% endblock header %}
 </head>
 <body>
-    <div class="container">
+    <div class="container container-left">
     	<div class="span2 offset10">
     		{% if user.is_authenticated %}
     			hello, {{ user.username }} | <a href="{% url 'logout' %}">logout</a>

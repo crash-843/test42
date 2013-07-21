@@ -5,7 +5,7 @@
 <head>
     <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
     <title>{% block title %}Test42{% endblock title %}</title>
-    <link rel="stylesheet" type="text/css" href="{% static "bootstrap/css/bootstrap.css" %}" />
+    <link rel="stylesheet" type="text/css" href="{% static "bootstrap/css/bootstrap.min.css" %}" />
     <link rel="stylesheet" href="{% static "css/base.css" %}">
     <script type="text/javascript" src="{% static "js/jquery-1.10.2.min.js" %}"></script>
     <script src="http://malsup.github.com/jquery.form.js"></script> 
@@ -13,7 +13,7 @@
 </head>
 <body>
     <div class="container container-left">
-    	<div class="span2 offset10">
+    	<div class="span2 offset6">
     		{% if user.is_authenticated %}
     			hello, {{ user.username }} | <a href="{% url 'logout' %}">logout</a>
     		{% else %}

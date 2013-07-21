@@ -11,57 +11,61 @@
     <h2>42 Coffee Cups Test Assignment</h2>
     <form id="edit_contact_form"class="form-horizontal" enctype="multipart/form-data" action="{% url 'contact-edit' %}" method="post">{% csrf_token %}
         <div class="row">
-            <div class="span6">
+            <div class="span4">
                 <div id="{{ form.first_name.name }}" class="control-group">
                     <label class="text-error">{{ form.first_name.errors }}</label>
-                    <label class="control-label">{{ form.first_name.label }}:</label>
-                    <div class="controls">{{ form.first_name }}</div>
+                    <label class="control-label contact-edit-label">{{ form.first_name.label }}:</label>
+                    <div class="controls contact-edit-controls">{{ form.first_name }}</div>
                 </div>
                 <div id="{{ form.last_name.name }}" class="control-group">
                     <label class="text-error">{{ form.last_name.errors }}</label>
-                    <label class="control-label" for="lastname">{{ form.last_name.label }}:</label>
-                    <div class="controls">{{ form.last_name}}</div>
+                    <label class="control-label contact-edit-label" for="lastname">{{ form.last_name.label }}:</label>
+                    <div class="controls contact-edit-controls">{{ form.last_name}}</div>
                 </div>
                 <div id="{{ form.birth_date.name }}" class="control-group">
                     <label class="text-error">{{ form.birth_date.errors }}</label>
-                    <label class="control-label" for="birth_date">{{ form.birth_date.label }}:</label>
-                    <div class="controls">{{ form.birth_date }}</div>
+                    <label class="control-label contact-edit-label" for="birth_date">{{ form.birth_date.label }}:</label>
+                    <div class="controls contact-edit-controls">{{ form.birth_date }}</div>
+                </div>
+                <div class="control-group">
+                    <label class="text-error">{{ form.photo.errors }}</label>
+                    <label class="control-label contact-edit-label" for="photo">{{ form.photo.label }}:</label>
+                    <div class="controls contact-edit-controls">
+                        {{ form.photo }}
+                    </div>
+                    
                 </div>
                 <div id="{{ form.photo.name }}" class="control-group">
-                    <label class="text-error">{{ form.photo.errors }}</label>
-                    <label class="control-label" for="photo">{{ form.photo.label }}:</label>
-                    <div class="controls">{{ form.photo }}
                         {% if form.instance.photo %}
                             <img src="{{ form.instance.photo.url }}">
                         {% else %}
                             <img src="">
                         {% endif %}
                     </div>
-                </div>
             </div>
-              <div class="span6">
+              <div class="span4">
                 <div id="{{ form.email.name }}" class="control-group">
                     <label class="text-error">{{ form.email.errors }}</label>
-                    <label class="control-label" for="email">{{ form.email.label }}:</label>
-                    <div class="controls">{{ form.email }}</div>
+                    <label class="control-label contact-edit-label" for="email">{{ form.email.label }}:</label>
+                    <div class="controls contact-edit-controls">{{ form.email }}</div>
                 </div>
                 <div id="{{ form.jabber.name }}" class="control-group">
                     <label class="text-error">{{ form.jabber.errors }}</label>
-                    <label class="control-label" for="jabber">{{ form.jabber.label }}:</label>
-                    <div class="controls">{{ form.jabber }}</div>
+                    <label class="control-label contact-edit-label" for="jabber">{{ form.jabber.label }}:</label>
+                    <div class="controls contact-edit-controls">{{ form.jabber }}</div>
                 </div>
                 <div id="{{ form.skype.name }}" class="control-group">
                     <label class="text-error">{{ form.skype.errors }}</label>
-                    <label class="control-label" for="skype">{{ form.skype.label }}:</label>
-                    <div class="controls">{{ form.skype }}</div>
+                    <label class="control-label contact-edit-label" for="skype">{{ form.skype.label }}:</label>
+                    <div class="controls contact-edit-controls">{{ form.skype }}</div>
                 </div>
                 <div id="{{ form.other_contacts.name }}" class="control-group">
                     <label class="text-error">{{ form.other_contacts.errors }}</label>
-                    <label class="control-label" for="other_contacts">{{ form.other_contacts.label }}:</label>{{ form.other_contacts }}
+                    <label class="control-label contact-edit-label" for="other_contacts">{{ form.other_contacts.label }}:</label>{{ form.other_contacts }}
                 </div>
                 <div id="{{ form.bio.name }}" class="control-group">
                     <label class="text-error">{{ form.bio.errors }}</label>
-                    <label class="control-label" for="bio">{{ form.bio.label }}:</label>{{ form.bio }}
+                    <label class="control-label contact-edit-label" for="bio">{{ form.bio.label }}:</label>{{ form.bio }}
                 </div>
             </div>
         </div>

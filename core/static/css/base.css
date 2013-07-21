@@ -9,6 +9,14 @@
 	margin-left: 15px;
 }
 
+.contact-edit-label{
+	width:100px !important;
+}
+
+.contact-edit-controls{
+	margin-left: 105px !important;
+}
+
 .edit_contact_progress{
 	display: none;
 }

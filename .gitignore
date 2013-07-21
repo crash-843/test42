@@ -4,6 +4,7 @@
 *.sqlite3
 *.css~
 *.dat
+*~*
 settings_local.py
 test42/static/
 media/

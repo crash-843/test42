@@ -25,3 +25,25 @@ class HttpLogEntry(models.Model):
 
     def __unicode__(self):
         return self.url
+
+
+class ModelsChangeLog(models.Model):
+    CREATE = 0
+    EDIT = 1
+    DELETE = 2
+
+    ACTION_CHOICES = (
+        (CREATE, _("Created")),
+        (EDIT, _("Edited")),
+        (DELETE, _("Deleted")),
+    )
+
+    model = models.CharField(max_length=255)
+    action = models.IntegerField(choices=ACTION_CHOICES)
+    created = models.DateTimeField(auto_now_add=True, editable=False)
+
+    def __unicode__(self):
+        return "%s - %s at %s" % (self.model, self.get_action_display(), self.created.strftime("%Y-%m-%d %H:%M:%S"))
+
+    class Meta:
+        get_latest_by = "created"

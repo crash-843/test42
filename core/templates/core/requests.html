@@ -15,7 +15,7 @@
         <tbody>
             {% for log_entry in log %}
                 <tr>
-                    <td>{{ host }}{{ log_entry.url }}</td>
+                    <td><a href="{{ log_entry.url }}">http://{{ host }}{{ log_entry.url }}</td>
                     <td>{{ log_entry.method }}</td>
                     <td>{{ log_entry.status_code }}</td>
                     <td>{{ log_entry.priority }}</td>

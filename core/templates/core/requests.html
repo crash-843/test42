@@ -8,7 +8,8 @@
                 <th>Url</th>
                 <th>Method</th>
                 <th>Status code</th>
-                <th>time</th>
+                <th>Priority</th>
+                <th>Time</th>
             </tr>
         </thead>
         <tbody>
@@ -17,6 +18,7 @@
                     <td>{{ host }}{{ log_entry.url }}</td>
                     <td>{{ log_entry.method }}</td>
                     <td>{{ log_entry.status_code }}</td>
+                    <td>{{ log_entry.priority }}</td>
                     <td>{{ log_entry.created|date:'H:i:s d.m.y' }}</td>
                 </tr>
             {% endfor %}

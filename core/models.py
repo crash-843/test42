@@ -11,7 +11,12 @@ class Contact(models.Model):
     jabber = models.CharField(_("Jabber"), max_length=255)
     skype = models.CharField(_("Skype"), max_length=32)
     other_contacts = models.TextField(_("Other contacts"))
-    photo = models.ImageField(_('Photo'), upload_to="images/core/upload", null=True, blank=True)
+    photo = models.ImageField(
+        _('Photo'),
+        upload_to="images/core/upload",
+        null=True,
+        blank=True
+    )
 
     def __unicode__(self):
         return self.first_name
@@ -22,9 +27,13 @@ class HttpLogEntry(models.Model):
     method = models.CharField(_("Method"), max_length=10)
     status_code = models.IntegerField(_("Status code"))
     created = models.DateTimeField(auto_now_add=True, editable=False)
+    priority = models.IntegerField(_("Priority"), default=0)
 
     def __unicode__(self):
         return self.url
+
+    class Meta:
+        ordering = ['-priority', 'created']
 
 
 class ModelsChangeLog(models.Model):
@@ -43,7 +52,11 @@ class ModelsChangeLog(models.Model):
     created = models.DateTimeField(auto_now_add=True, editable=False)
 
     def __unicode__(self):
-        return "%s - %s at %s" % (self.model, self.get_action_display(), self.created.strftime("%Y-%m-%d %H:%M:%S"))
+        return "%s - %s at %s" % (
+            self.model,
+            self.get_action_display(),
+            self.created.strftime("%Y-%m-%d %H:%M:%S")
+        )
 
     class Meta:
         get_latest_by = "created"

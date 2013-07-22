@@ -42,7 +42,7 @@ class HttpMiddlewareTestCase(TestCase):
             response = self.client.get(reverse('log'))
 
         response = self.client.get(reverse('log'))
-        log = HttpLogEntry.objects.all().order_by('created')[:10]
+        log = HttpLogEntry.objects.all()[:10]
         log_resp = response.context['log']
 
         self.assertEqual(len(log_resp), 10)
@@ -51,6 +51,31 @@ class HttpMiddlewareTestCase(TestCase):
             self.assertEqual(log[i].method, log_resp[i].method)
             self.assertEqual(log[i].status_code, log_resp[i].status_code)
             self.assertEqual(log[i].created, log_resp[i].created)
+
+    def test_priority(self):
+        self.client.get(reverse('index'))
+        self.client.get(reverse('log'))
+        self.client.get(reverse('login'))
+        self.client.get(reverse('contact-edit'))
+
+        log = HttpLogEntry.objects.all()
+
+        log0 = log[0]
+        log0.priority = 1
+        log0.save()
+        log1 = log[1]
+        log1.priority = 3
+        log1.save()
+        log2 = log[2]
+        log2.priority = 2
+        log2.save()
+
+        log = HttpLogEntry.objects.all()
+
+        self.assertEqual(log[0].priority, 3)
+        self.assertEqual(log[1].priority, 2)
+        self.assertEqual(log[2].priority, 1)
+        self.assertEqual(log[3].priority, 0)
 
 
 class ContextProcessorsTextCase(TestCase):
@@ -78,7 +103,10 @@ class ContactEditTestCase(TestCase):
         data['skype'] = 'skype_test'
         data['other_contacts'] = 'other_test'
         data['bio'] = 'bio_test'
-        data['photo'] = open(os.path.join(settings.MEDIA_ROOT, 'images/core/test_image.jpg'), "rb")
+        data['photo'] = open(
+            os.path.join(settings.MEDIA_ROOT, 'images/core/test_image.jpg'),
+            "rb"
+        )
 
         response = self.client.post(reverse('contact-edit'), data)
         self.assertEqual(response.status_code, 302)
@@ -86,7 +114,10 @@ class ContactEditTestCase(TestCase):
         contact = Contact.objects.get(pk=1)
         self.assertEqual(contact.first_name, data['first_name'])
         self.assertEqual(contact.last_name, data['last_name'])
-        self.assertEqual(contact.birth_date.strftime("%Y-%m-%d"), data['birth_date'])
+        self.assertEqual(
+            contact.birth_date.strftime("%Y-%m-%d"),
+            data['birth_date']
+        )
         self.assertEqual(contact.email, data['email'])
         self.assertEqual(contact.jabber, data['jabber'])
         self.assertEqual(contact.skype, data['skype'])
@@ -105,16 +136,26 @@ class ContactEditTestCase(TestCase):
         data['skype'] = 'skype_test'
         data['other_contacts'] = 'other_test'
         data['bio'] = 'bio_test'
-        data['photo'] = open(os.path.join(settings.MEDIA_ROOT, 'images/core/test_image.jpg'), "rb")
+        data['photo'] = open(
+            os.path.join(settings.MEDIA_ROOT, 'images/core/test_image.jpg'),
+            "rb"
+        )
 
-        response = self.client.post(reverse('contact-edit'), data,  HTTP_X_REQUESTED_WITH='XMLHttpRequest')
+        response = self.client.post(
+            reverse('contact-edit'),
+            data,
+            HTTP_X_REQUESTED_WITH='XMLHttpRequest'
+        )
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, '"is_error": 0')
 
         contact = Contact.objects.get(pk=1)
         self.assertEqual(contact.first_name, data['first_name'])
         self.assertEqual(contact.last_name, data['last_name'])
-        self.assertEqual(contact.birth_date.strftime("%Y-%m-%d"), data['birth_date'])
+        self.assertEqual(
+            contact.birth_date.strftime("%Y-%m-%d"),
+            data['birth_date']
+        )
         self.assertEqual(contact.email, data['email'])
         self.assertEqual(contact.jabber, data['jabber'])
         self.assertEqual(contact.skype, data['skype'])
@@ -151,7 +192,10 @@ class GetModelsComandTestCase(TestCase):
         models_list_err = ''
 
         for model in ContentType.objects.all():
-            out = '%s - %s' % (model.model, model.model_class().objects.count())
+            out = '%s - %s' % (
+                model.model,
+                model.model_class().objects.count()
+            )
             models_list = models_list + out + '\n'
             models_list_err = models_list_err + out + '\n'
 

@@ -8,6 +8,8 @@ class ContactForm(ModelForm):
     class Meta:
         model = Contact
         widgets = {
-            'birth_date': DateWidget(params="dateFormat: 'yy-mm-dd', changeYear: true"),
+            'birth_date': DateWidget(
+                params="dateFormat: 'yy-mm-dd', changeYear: true"
+            ),
             'photo': FileInput(),
         }

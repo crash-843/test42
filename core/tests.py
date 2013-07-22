@@ -177,7 +177,7 @@ class EditLinkTemplateTagTestCase(TestCase):
 
 
 class GetModelsComandTestCase(TestCase):
-    def test_det_models(self):
+    def test_get_models(self):
         stdout = StringIO()
         stderr = StringIO()
 
@@ -217,17 +217,23 @@ class ModelsChangeLogTestCase(TestCase):
         )
         contact.save()
 
+        contact_object_name = ContentType.objects.get_for_model(contact).model
+
         log_entry = ModelsChangeLog.objects.latest()
-        self.assertEqual(log_entry.model, contact._meta.object_name)
+        self.assertEqual(log_entry.model, contact_object_name.title())
         self.assertEqual(log_entry.action, ModelsChangeLog.CREATE)
+        self.assertEqual(log_entry.object_id, contact.pk)
 
         contact.first_name = 'Igor_test_edit'
         contact.save()
         log_entry = ModelsChangeLog.objects.latest()
-        self.assertEqual(log_entry.model, contact._meta.object_name)
+        self.assertEqual(log_entry.model, contact_object_name.title())
         self.assertEqual(log_entry.action, ModelsChangeLog.EDIT)
+        self.assertEqual(log_entry.object_id, contact.pk)
 
+        contact_pk = contact.pk
         contact.delete()
         log_entry = ModelsChangeLog.objects.latest('created')
-        self.assertEqual(log_entry.model, contact._meta.object_name)
+        self.assertEqual(log_entry.model, contact_object_name.title())
         self.assertEqual(log_entry.action, ModelsChangeLog.DELETE)
+        self.assertEqual(log_entry.object_id, contact_pk)

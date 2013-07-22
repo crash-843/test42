@@ -14,7 +14,7 @@ class HttpLogEntryAdmin(admin.ModelAdmin):
 
 
 class ModelsChangeLogAdmin(admin.ModelAdmin):
-    list_display = ('model', 'action', 'created',)
+    list_display = ('model', 'object_id', 'action', 'created',)
     list_filter = ('action', 'model', )
 
 admin.site.register(Contact, ContactAdmin)

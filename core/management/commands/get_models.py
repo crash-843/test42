@@ -7,6 +7,9 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         for model in ContentType.objects.all():
-            out = '%s - %s' % (model.model, model.model_class().objects.count())
+            out = '%s - %s' % (
+                model.model,
+                model.model_class().objects.count()
+            )
             self.stdout.write(out)
             self.stderr.write('error: %s' % out)

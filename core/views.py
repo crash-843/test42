@@ -24,7 +24,7 @@ def index(request):
 
 def get_http_log(request):
     try:
-        log = HttpLogEntry.objects.all().order_by('created')[:10]
+        log = HttpLogEntry.objects.all()[:10]
     except HttpLogEntry.DoesNotExist:
         log = None
     data = {
